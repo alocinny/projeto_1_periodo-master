@@ -165,7 +165,7 @@ def sword_splash_screen(stdscr):
 #### MENU #####
 
 def print_menu(stdscr, selected_opcoes_idx):
-    menu = ['facil','dificil', 'sair']   
+    menu = ['facil','dificil', 'instrucoes']   
 
     stdscr.clear()
 
@@ -215,7 +215,7 @@ def menu(stdscr):
     
 
 def print_menu_cores(stdscr, selected_opcoes_idx):
-    menu = ['branco e cinza', 'ciano e lilas']    
+    menu = ['verao', 'primavera']    
 
     stdscr.clear()
 
@@ -237,7 +237,7 @@ def print_menu_cores(stdscr, selected_opcoes_idx):
     stdscr.refresh()
 
 def print_menu_cores2(stdscr, selected_opcoes_idx):
-    menu = ['amarelo e roxo', 'verde rosa']    
+    menu = ['outono', 'inverno']    
 
     stdscr.clear()
 
@@ -528,7 +528,7 @@ def facil_cor1(stdscr):
     draw_room_map2(stdscr, GREY, WHITE)
     draw_corr_map2(stdscr, GREY)
     # COLETAVEIS
-    colet2 = [[5, 11], [29, 25], [14,125], [10,65], [28,50]]
+    colet2 = [[5, 11], [27, 23], [14,123], [7,66], [26,51]]
     for i in range(len(colet2)):
         stdscr.addch(colet2[i][0], colet2[i][1], curses.ACS_DIAMOND)
 
@@ -551,10 +551,10 @@ def facil_cor2(stdscr):
 
 
 
-    curses.init_pair(10, 165, 165)
+    curses.init_pair(10, 250, 250)
     WHITE = curses.color_pair(10)
 
-    curses.init_pair(11, 37, 37)
+    curses.init_pair(11, 103, 103)
     GREY = curses.color_pair(11)
 
     
@@ -562,7 +562,7 @@ def facil_cor2(stdscr):
     draw_room_map2(stdscr, GREY, WHITE)
     draw_corr_map2(stdscr, GREY)
     # COLETAVEIS
-    colet2 = [[5, 11], [29, 25], [14,125], [10,65], [28,50]]
+    colet2 = [[5, 11], [27, 23], [14,123], [7,66], [26,51]]
     for i in range(len(colet2)):
         stdscr.addch(colet2[i][0], colet2[i][1], curses.ACS_DIAMOND)
 
@@ -596,9 +596,10 @@ def dificil_cor1(stdscr):
     draw_room_map1(stdscr, YELLOW, MAGENTA)
     draw_corr_map1(stdscr, YELLOW)
     # COLETAVEIS
-    colet1 = [[9,19],[29,20], [13,125], [9,65], [17,30], [31,35], [26,92]]
+    colet1 = [[9,19],[26,18], [16,123], [7,67], [15,32], [29,37], [24,90]]
     for i in range(len(colet1)):
         stdscr.addch(colet1[i][0], colet1[i][1], curses.ACS_DIAMOND | MAGENTA_AND_YELLOW)
+
 
 ### MODO DIFICIL NAS CORES VERDE E ROSA
 def dificil_cor2(stdscr):
@@ -616,29 +617,32 @@ def dificil_cor2(stdscr):
 
 
     curses.init_pair(14, 22, 22)
-    AZUL = curses.color_pair(14)
+    VERDE = curses.color_pair(14)
 
-    curses.init_pair(15, 89, 89)
+    curses.init_pair(15, 96, 96)
     ROSA = curses.color_pair(15)
 
-    
+    curses.init_pair(18, 96, 22)
+    VERDE_E_ROSA = curses.color_pair(18)
+
     stdscr.refresh()
-    draw_room_map1(stdscr, AZUL, ROSA)
-    draw_corr_map1(stdscr, AZUL)
+    draw_room_map1(stdscr, VERDE, ROSA)
+    draw_corr_map1(stdscr, VERDE)
+
     # COLETAVEIS
-    colet1 = [[9,19],[29,20], [13,125], [9,65], [17,30], [31,35], [26,92]]
+    colet1 = [[9,19],[26,18], [16,123], [7,67], [15,32], [29,37], [24,90]]
     for i in range(len(colet1)):
-        stdscr.addch(colet1[i][0], colet1[i][1], curses.ACS_DIAMOND)
+        stdscr.addch(colet1[i][0], colet1[i][1], curses.ACS_DIAMOND | VERDE_E_ROSA)
 
 ##### MAIN ##########
 def main1(stdscr):
     stdscr.clear()
     curses.curs_set(0)
 
-    #splash_screen(stdscr)
-    #curses.napms(2000)
-    #stdscr.clear()
-    #stdscr.refresh()
+    splash_screen(stdscr)
+    curses.napms(2000)
+    stdscr.clear()
+    stdscr.refresh()
 
     Y_MAX, X_MAX = stdscr.getmaxyx()
     texto = 'CUSTOMIZAR'
@@ -656,7 +660,7 @@ def main1(stdscr):
                 0x1c * 1000 // 0xff
             )
 
-    menu = [ 'facil','dificil', 'exit']
+    menu = [ 'facil','dificil', 'instrucoes']
 
     opcaoAtual_opcoes_idx = 0
     
@@ -674,13 +678,15 @@ def main1(stdscr):
         elif key == curses.KEY_ENTER or key in [10, 13]:
             if opcaoAtual_opcoes_idx == len(menu)-3:
             
-                menu = ['branco e cinza', 'lilas e ciano']
+                menu = ['verao', 'primavera']
 
                 opcaoAtual_opcoes_idx = 0
                 
                 key = 0
                 while 1: 
                     print_menu_cores(stdscr, opcaoAtual_opcoes_idx)
+                    stdscr.addstr(y_max-3, x_max+5, texto)
+
                     key = stdscr.getch()
 
                     stdscr.clear()
@@ -706,14 +712,14 @@ def main1(stdscr):
                     stdscr.refresh()
                 
             if opcaoAtual_opcoes_idx == len(menu)-2:
-                menu = ['amarelo e roxo', 'rosa e azul']
+                menu = ['outono', 'inverno']
 
                 opcaoAtual_opcoes_idx = 0
                 
                 key = 0
                 while 1: 
                     print_menu_cores2(stdscr, opcaoAtual_opcoes_idx)
-                    stdscr.addstr(y_max-3, x_max, texto)
+                    stdscr.addstr(y_max-3, x_max+5, texto)
                     key = stdscr.getch()
 
                     stdscr.clear()
@@ -736,6 +742,8 @@ def main1(stdscr):
                     print_menu_cores2(stdscr, opcaoAtual_opcoes_idx)
 
                     stdscr.refresh()
+            if opcaoAtual_opcoes_idx == len(menu)-1:
+                break
 
         print_menu(stdscr, opcaoAtual_opcoes_idx)
 
